@@ -7,7 +7,7 @@ def get_window(img,step_size,win_size):
        for y in range(0,img.shape[1],step_size):
            yield (x,y,img[y:y+win_size[1], x:x+win_size[0]])
 
-# funtion to get different types of Thresholding
+# function to get different types of Thresholding
 def threshold(src, type):
 
     if type == 'adaptive':
@@ -23,7 +23,7 @@ def threshold(src, type):
 
     return th
 
-# funtion to get different kernels for morphological ops
+# function to get different kernels for morphological ops
 def get_kernel(type,tup):
 
     if type == 'rect':

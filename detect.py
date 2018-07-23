@@ -141,7 +141,6 @@ def main():
     all_files = read_data(args.input_path)
     if not os.path.isdir(args.output_path):
         os.makedirs(args.output_path)
-    #detect_box(all_files[1])
     for filename in all_files:
         detect_box(filename,args.output_path)
 
