@@ -23,6 +23,7 @@ Libraries used:
 Files:
 
 1] 'detect.py' : This is the file used to detect the boxes and save it to the output path and save the points to json file.
+
 2] 'helper.py' : This file consists of all the helper functions required for preprocessing the image.
 
 Process:
