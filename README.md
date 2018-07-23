@@ -8,9 +8,9 @@ The points from the detected rectangular contours are written to a json file.
 
 To Run the Code:
 
-- Clone this git repo to a directory.
-- cd <to cloned directory>
-- python detect.py --input_path <path to input images. default = './examples/inputs'> --output_path <path to output images. default = './output'>
+- Clone this git repository to a directory.
+- cd [to cloned directory]
+- python detect.py --input_path [path to input images. default = './examples/inputs'] --output_path [path to output images. default = './output']
 
 
 Libraries used:
