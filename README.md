@@ -1,87 +1,44 @@
 Box Detection
 =============
 
-Guidelines
-----------
-* Organize, test, and document like you would on Production
-* Send us a link to the hosted repository (Github, Bitbucket, ...)
+This code is for detecting boxes in any scanned document image.
+This code uses thresholding , windowing and morphological operations to preprocess the image and 
+then use contour detection to detect rectangular contours and use this to highlight boxes in the original image.
+The points from the detected rectangular contours are written to a json file.
 
-Task
-----
-Create a service that will detect all the boxes in a given document.
+To Run the Code:
 
-It should take the following paramters:
-* `input_file`: URL or a Local file path of the input document in which to detect the boxes
-* `output_file`: Local file path of the output document in which to draw the detected boxes
-
-Apart from drawing the boxes in the `output_file`, the service should also return the co-ordinates of the detected boxes in JSON format.
-
-Example Response:
-```
-{
-    "boxes": [
-        {
-            "points": [
-                [
-                    90,
-                    838
-                ],
-                [
-                    75,
-                    838
-                ],
-                [
-                    75,
-                    851
-                ],
-                [
-                    90,
-                    851
-                ],
-                [
-                    90,
-                    838
-                ]
-            ]
-        },
-        {
-            "points": [
-                [
-                    327,
-                    840
-                ],
-                [
-                    313,
-                    840
-                ],
-                [
-                    313,
-                    853
-                ],
-                [
-                    327,
-                    853
-                ],
-                [
-                    327,
-                    840
-                ]
-            ]
-        },
-        .
-        .
-    ]
-}
-```
+- Clone this git repo to a directory.
+- cd <to cloned directory>
+- python detect.py --input_path <path to input images. default = './examples/inputs'> --output_path <path to output images. default = './output'>
 
 
-Examples
---------
-For your convinenince, we have uploaded a few test documents in the `examples/inputs` directory. You can choose to test on those documents or any documents of your choosing.
-We have also uploaded a few examples of what we expect the output files to look like in the `examples/outputs` directory. (The ID values inside each box is not required)
+Libraries used:
 
-Running
--------
-Obviously, we should be able to test your code. You have 2 options here:
-* Create a `run_service.sh` script that will run a server locally on port `5000`
-* Create a `README.md` in your repo with an example on how to run your service via the command line
+- OpenCV
+- numpy
+- json
+- glob2
+
+Files:
+
+1] 'detect.py' : This is the file used to detect the boxes and save it to the output path and save the points to json file.
+2] 'helper.py' : This file consists of all the helper functions required for preprocessing the image.
+
+Process:
+
+1] Windowing : The image is cropped into windows for edge detection. Also, for efficiently detecting both, small and large edges,
+two windows, namely 'small_win_mask' and 'large_win_mask' are used.
+
+2] Thresholding : Every window of the image is gaussian filtered and then thresholded using opencv's 'Adaptive Gaussian Thresholding' technique.
+Then the thresholded window image is passed to morphological operations.
+    
+3] Morphological operations : Uses horizontal and vertical kernels to detect horizontal and vertical lines using OpenCV's 'dilate' and 'erode' methods.
+The horizontal and vertical line masks are added to form a mask that contains boxes.
+
+4] Contour detection : This is done using OpenCV's 'findContours' method. The approx contour is calculated using 'arcLength' and 'approxPolyDP' methods. 
+Using this approx contour, shape of the contour is detected and if it is rectangular, it is drawn on the original image using 'drawContour' method and
+its points are written to json file in required format.
+
+
+
